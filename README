@@ -1,0 +1,26 @@
+Hashtable-based-In-Memory-Cache
+===============================
+
+Intro:
+
+Java Hashtable based In-Memory KeyValue store. 
+Cleanup thread periodically cleans up the Hashtable using an index (instance of TreeMap collection which is implemented using Red Black tree algorithm)
+
+API methods:
+
+1. Add (String key, Object value, long TTL) -  
+	a. Accepts KeyValue pair along with Time To Live (TTL).
+
+2. Get (String key) - 
+	a. Returns an Object associated with this key 
+	b. Removes it if expired and throws an exception, "Object expired."
+	c. If such a key doesn't exist throws an exception, "Object does not exit/expired."
+
+Iprovements:
+
+1. The frequency of the cleaner needs to be tuned/improved a lot as per the system's needs/capacity
+
+
+Disclaimer:
+
+* Not tested in large scale
