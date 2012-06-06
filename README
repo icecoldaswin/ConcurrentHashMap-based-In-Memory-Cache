@@ -16,6 +16,9 @@ API methods:
 	b. Removes it if expired and throws an exception, "Object expired."
 	c. If such a key doesn't exist throws an exception, "Object does not exit/expired."
 
+3. Delete (String key) -
+	a. Deletes a record with the given key if it exists and not already expired. Throws an exception otherwise.
+
 Iprovements:
 
 1. The frequency of the cleaner needs to be tuned/improved a lot as per the system's needs/capacity
