@@ -26,7 +26,7 @@ class CacheTestCaseThread extends Thread {
 		this.totalKeysForThisThread = totalKeysForThisThread;
 		this.pw = controller;
 		
-		f = new File   ("C:\\Users\\aswini\\Desktop\\desktop\\apk\\BlockPuzzle2-22.apk");
+		f = new File   ("C:\\xxxxxxxxxx\\BlockPuzzle2-22.apk");
 		junk = new byte[1024];
 		
 		this.start();
@@ -93,7 +93,7 @@ public class CacheTestCase3 {
 	{
 		cs =  new CacheSystem (100000, 75000);
 		CacheTestCaseThread[] ctct = new CacheTestCaseThread [totalThreads];
-		csv = new File ("C:\\Users\\aswini\\Desktop\\Perf.csv");
+		csv = new File ("C:\\xxxxxx\\Perf.csv");
 		for (int threadID=0; threadID < totalThreads; threadID++) {
 			ctct [threadID] = new CacheTestCaseThread(cs, threadID, totalThreads, totalKeysForEachThread, this);
 		}
