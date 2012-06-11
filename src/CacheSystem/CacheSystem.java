@@ -47,7 +47,7 @@ public class CacheSystem {
 		}
 	}
 	
-	public void delete (String key) throws Exception {
+	public synchronized void delete (String key) throws Exception {
 		if (!dataStore.isEmpty()) {
 			throw (new Exception ("No data stored at this time."));
 		}
@@ -56,7 +56,7 @@ public class CacheSystem {
 		}
 	}
 	
-	public void add (String key, Object obj, long inputTTL) throws Exception {
+	public synchronized void add (String key, Object obj, long inputTTL) throws Exception {
 		long timeToLive = System.currentTimeMillis() + (inputTTL * 1000);
 		if (dataStore.containsKey(key)) {
 			delete (key);
