@@ -5,7 +5,8 @@ Intro:
 -----
 
 A In-Memory KeyValue store developed in Java using the Hashtable & TreeMap collection objects. 
-Cleanup thread periodically cleans up the Hashtable using an index (instance of TreeMap collection which is implemented using Red Black tree algorithm)
+Cleanup thread periodically cleans up the Hashtable using an index (instance of TreeMap collection which is 
+implemented using Red Black tree algorithm)
 
 API methods:
 -----------
@@ -31,7 +32,8 @@ TestCases:
 
 CacheSystemTestCase3 - 
 
-A multi threaded access to the cache. 500 threads calls "add ()" with distict Key-Value pairs, but "get ()" with random Keys. i.e,. Concurrent reads and no concurrent writes.
+A multi threaded access to the cache. 500 threads calls "add ()" with distict Key-Value pairs, but "get ()" 
+with random Keys. i.e,. Concurrent reads and no concurrent writes.
 
 Disclaimer:
 ----------
