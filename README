@@ -4,10 +4,9 @@ Hashtable-based-In-Memory-Cache
 Intro:
 -----
 
-A simple In-Memory KeyValue store that can be hooked on to a program developed in Java using the Hashtable & 
-TreeMap collection objects. 
-The Cleanup thread periodically cleans up the Hashtable using an index (instance of TreeMap collection which is 
-implemented using Red Black tree algorithm)
+A simple In-Memory KeyValue store that can be instantiated from with-in any Java program. 
+Comes with a 'Cleanup thread' that periodically cleans up the Hashtable (based on the TTL for each entry) using
+an index (instance of TreeMap collection which is implemented using Red Black tree algorithm)
 
 API methods:
 -----------
