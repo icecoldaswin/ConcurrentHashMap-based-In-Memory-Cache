@@ -14,8 +14,8 @@ public class CacheTestCase2 {
 	{
 		CacheSystem cs; 
 		cs =  new CacheSystem (100, 75);
-		File f = new File   ("C:\\xxxxxx\\apk\\BlockPuzzle2-22.apk");
-		File csv = new File ("C:\\xxxxxx\\Perf.csv");
+		File f = new File   ("C:\\Users\\aswini\\Desktop\\desktop\\apk\\BlockPuzzle2-22.apk");
+		File csv = new File ("C:\\Users\\aswini\\Desktop\\Perf.csv");
 		PrintWriter pw = null;
 		byte [] junk = new byte[1024];
 		
@@ -48,7 +48,7 @@ public class CacheTestCase2 {
 		
 		try {
 			System.out.println ("Sleeping at "+(new java.util.GregorianCalendar ()).getTime());
-			Thread.sleep (360000);
+			Thread.sleep (3000);
 		}
 		catch (Exception e) {}
 

@@ -8,7 +8,7 @@ import java.io.DataInputStream;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 
-class CacheTestCaseThread extends Thread {
+class CacheTestCaseThread2 extends Thread {
 	
 	CacheSystem cs;
 	File f;
@@ -16,9 +16,9 @@ class CacheTestCaseThread extends Thread {
 	byte [] junk = null;
 	int totalThreads = 0;
 	int totalKeysForThisThread = 0;
-	CacheTestCase3 pw;
+	CacheTestCase4 pw;
 	
-	CacheTestCaseThread (CacheSystem cs, int threadID, int totalThreads, int totalKeysForThisThread, CacheTestCase3 controller)
+	CacheTestCaseThread2 (CacheSystem cs, int threadID, int totalThreads, int totalKeysForThisThread, CacheTestCase4 controller)
 	{
 		this.cs =  cs;
 		this.threadID = threadID;
@@ -35,13 +35,12 @@ class CacheTestCaseThread extends Thread {
 	public void run () {
 		long time_marker_ = System.currentTimeMillis();
 		
-		
 		for (int i=60; i < totalKeysForThisThread; i++) {
 			try {
 			int TTL = i + 60; 	//	Making sure no key lives for less than 60ms.
-			
+			int randomThread = new java.util.Random ().nextInt (totalThreads);
 			time_marker_ = System.currentTimeMillis();
-			cs.add(threadID+"key"+i, new String (junk), TTL);
+			cs.add(randomThread+"key"+i, new String (junk), TTL);
 			time_marker_ = System.currentTimeMillis() - time_marker_;
 			pw.println (threadID+", add, "+time_marker_);
 			}
@@ -59,7 +58,7 @@ class CacheTestCaseThread extends Thread {
 
 		// Read 15 of them in random
 		
-		for (int j = 0; j < 500; j++) {
+		for (int j = 0; j < totalKeysForThisThread; j++) {
 			int randomKey 		= new java.util.Random ().nextInt (totalKeysForThisThread);
 			int randomThreadID  = new java.util.Random ().nextInt (totalThreads);
 			
@@ -79,23 +78,23 @@ class CacheTestCaseThread extends Thread {
 }
  
 
-public class CacheTestCase3 {
+public class CacheTestCase4 {
 
 	CacheSystem cs;
-	int totalThreads = 500;
+	int totalThreads = 2000;
 	int totalKeysForEachThread = 500;
 	File csv;
 	PrintWriter pw;
 	private int printRequestCounter = 0;
 	StringBuffer logMessages = new StringBuffer ();
 		
-	public CacheTestCase3 ()
+	public CacheTestCase4 ()
 	{
 		cs =  new CacheSystem (100000, 75000);
-		CacheTestCaseThread[] ctct = new CacheTestCaseThread [totalThreads];
+		CacheTestCaseThread2 [] ctct = new CacheTestCaseThread2 [totalThreads];
 		csv = new File ("C:\\Users\\aswini\\Desktop\\Perf.csv");
 		for (int threadID=0; threadID < totalThreads; threadID++) {
-			ctct [threadID] = new CacheTestCaseThread(cs, threadID, totalThreads, totalKeysForEachThread, this);
+			ctct [threadID] = new CacheTestCaseThread2(cs, threadID, totalThreads, totalKeysForEachThread, this);
 		}
 		
 		try {
@@ -127,7 +126,7 @@ public class CacheTestCase3 {
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		CacheTestCase3 ctc = new CacheTestCase3();
+		CacheTestCase4 ctc = new CacheTestCase4();
 //		ctc.pw.close();
 	}
 
