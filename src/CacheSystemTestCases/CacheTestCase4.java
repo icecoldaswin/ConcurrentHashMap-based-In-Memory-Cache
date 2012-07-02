@@ -1,10 +1,7 @@
 package CacheSystemTestCases;
 
 import CacheSystem.CacheSystem;
-import CacheSystem.util.*;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.DataInputStream;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 
@@ -79,15 +76,15 @@ class CacheTestCaseThread2 extends Thread {
  
 
 public class CacheTestCase4 {
-
 	CacheSystem cs;
-	int totalThreads = 2000;
+	int totalThreads = 500;
 	int totalKeysForEachThread = 500;
 	File csv;
 	PrintWriter pw;
 	private int printRequestCounter = 0;
 	StringBuffer logMessages = new StringBuffer ();
-		
+	int printWriterPending = 0;
+	
 	public CacheTestCase4 ()
 	{
 		cs =  new CacheSystem (100000, 75000);
@@ -108,12 +105,13 @@ public class CacheTestCase4 {
 	
 	public synchronized void println (String message) {
 		printRequestCounter++;
+		printWriterPending++;
 		logMessages.append(message+"\n");
 //		pw.println (message);
-		if (printRequestCounter%1000 == 0) { 
+		if (printRequestCounter%1000 == 0 && printWriterPending > 0) {
 			pw.println (logMessages);
 			this.flush();
-			logMessages.delete(1, logMessages.length());
+			logMessages.delete (1, logMessages.length());
 		}
 	}
 	
@@ -122,12 +120,12 @@ public class CacheTestCase4 {
 		System.out.println ("printRequestCounter is: "+printRequestCounter+". Flushing now.");
 		System.out.println ();
 		pw.flush ();
+		printWriterPending = 0;
 	}
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		CacheTestCase4 ctc = new CacheTestCase4();
-//		ctc.pw.close();
+		new CacheTestCase4();
 	}
 
 }

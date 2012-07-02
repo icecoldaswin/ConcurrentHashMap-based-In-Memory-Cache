@@ -45,7 +45,8 @@ public class CacheSystem {
 	}
 	
 	public synchronized void delete (String key) throws Exception {
-		if (!dataStore.isEmpty()) {
+		if (dataStore.isEmpty())	// Fixed by mlvtr (https://github.com/mlvtr) 
+		{
 			throw (new Exception ("No data stored at this time."));
 		}
 		else {
