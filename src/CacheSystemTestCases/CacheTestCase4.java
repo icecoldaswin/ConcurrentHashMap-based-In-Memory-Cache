@@ -77,7 +77,7 @@ class CacheTestCaseThread2 extends Thread {
 
 public class CacheTestCase4 {
 	CacheSystem cs;
-	int totalThreads = 500;
+	int totalThreads = 1000;
 	int totalKeysForEachThread = 500;
 	File csv;
 	PrintWriter pw;

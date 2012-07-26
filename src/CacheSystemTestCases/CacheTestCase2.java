@@ -48,7 +48,7 @@ public class CacheTestCase2 {
 		
 		try {
 			System.out.println ("Sleeping at "+(new java.util.GregorianCalendar ()).getTime());
-			Thread.sleep (360000);
+			Thread.sleep (3000);
 		}
 		catch (Exception e) {}
 

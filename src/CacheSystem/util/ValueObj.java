@@ -6,10 +6,10 @@ public class ValueObj {
 	
 	public ValueObj (Object obj, long TTL) {
 		this.obj 	 = obj;
-		this.expiry = ((new java.util.GregorianCalendar ()).getTimeInMillis() + expiry); 
+		this.expiry = ((new java.util.GregorianCalendar ()).getTimeInMillis() + TTL); 
 	}
 	
 	public boolean isExpired () {
-		return (expiry == (new java.util.GregorianCalendar ()).getTimeInMillis());   
+		return (expiry <= (new java.util.GregorianCalendar ()).getTimeInMillis());   
 	}
 }
