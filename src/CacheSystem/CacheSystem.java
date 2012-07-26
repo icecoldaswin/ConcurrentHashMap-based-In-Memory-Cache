@@ -1,18 +1,21 @@
 package CacheSystem; 
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.SortedMap;
+
 import CacheSystem.util.ValueObj;
 import CacheSystem.util.CacheCleaner;
+import java.util.Hashtable;
 import java.util.TreeMap;
-import java.util.concurrent.ConcurrentHashMap;
 
 public class CacheSystem {
-	ConcurrentHashMap<String, ValueObj> dataStore;
+	Hashtable<String, ValueObj> dataStore;
 	TreeMap<Long, ArrayList<String>> expiryIndex;
 	
 	CacheCleaner cleaner;
 	public CacheSystem (int initialCapacity, float loadFactor) {
-		dataStore = new ConcurrentHashMap<String, ValueObj>(initialCapacity, loadFactor);
+		dataStore = new Hashtable<String, ValueObj>(initialCapacity, loadFactor);
 		expiryIndex = new TreeMap<Long, ArrayList<String>>  ();
 		cleaner = new CacheCleaner ();
 		cleaner.setDataStore(dataStore);
@@ -22,7 +25,7 @@ public class CacheSystem {
 	}
 	
 	public CacheSystem () {
-		dataStore   = new ConcurrentHashMap<String, ValueObj> ();
+		dataStore   = new Hashtable<String, ValueObj> ();
 		expiryIndex = new TreeMap<Long, ArrayList<String>>  ();
 		cleaner = new CacheCleaner ();
 		cleaner.setDataStore(dataStore);
@@ -45,8 +48,7 @@ public class CacheSystem {
 	}
 	
 	public synchronized void delete (String key) throws Exception {
-		if (dataStore.isEmpty())	// Fixed by mlvtr (https://github.com/mlvtr) 
-		{
+		if (!dataStore.isEmpty()) {
 			throw (new Exception ("No data stored at this time."));
 		}
 		else {
@@ -56,7 +58,9 @@ public class CacheSystem {
 	
 	public synchronized void add (String key, Object obj, long inputTTL) throws Exception {
 		long timeToLive = System.currentTimeMillis() + (inputTTL * 1000);
-	
+		if (dataStore.containsKey(key)) {
+			delete (key);
+		}
 		// Convert input TTL (in seconds) to milliseconds.
 		ValueObj vo = new ValueObj(obj, timeToLive); 
 		dataStore.put (key, vo);

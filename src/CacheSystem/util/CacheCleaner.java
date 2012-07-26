@@ -6,16 +6,15 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
-import java.util.concurrent.ConcurrentHashMap;
 
 public class CacheCleaner extends Thread {
 
-	ConcurrentHashMap<String, ValueObj> dataStore;
+	Hashtable<String, ValueObj> dataStore;
 	TreeMap<Long, ArrayList <String>> expiryIndex;
 	Map.Entry<Long, ArrayList <String>> indexElement;
 	int cleanupFrequency = 1;
 
-	public CacheCleaner (ConcurrentHashMap<String, ValueObj> dataStore, TreeMap<Long, ArrayList <String>> expiryIndex) {
+	public CacheCleaner (Hashtable<String, ValueObj> dataStore, TreeMap<Long, ArrayList <String>> expiryIndex) {
 		setDataStore (dataStore);
 		setExpiryIndex(expiryIndex);
 		this.run();
@@ -24,7 +23,7 @@ public class CacheCleaner extends Thread {
 		
 	}
 	
-	public void setDataStore (ConcurrentHashMap<String, ValueObj> dataStore) {
+	public void setDataStore (Hashtable<String, ValueObj> dataStore) {
 		this.dataStore = dataStore;
 	}
 	
